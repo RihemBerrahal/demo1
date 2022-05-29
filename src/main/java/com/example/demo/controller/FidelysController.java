@@ -2,6 +2,8 @@ package com.example.demo.controller;
 
 
 import com.example.demo.entities.Fidelys;
+import com.example.demo.entities.Vols;
+import com.example.demo.entities.billet;
 import com.example.demo.service.EmailSenderService;
 import com.example.demo.service.FidelysService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -76,9 +78,9 @@ EmailSenderService emailSenderService;
 
     }
     @PostMapping("/setpassword")
-    public Fidelys modifierPassword(@RequestBody Fidelys fidelys) {
+    public Fidelys modifierPassword(@RequestBody int id, String password, String oldpassword) throws Exception {
 
-        return fidelysService.updatepassword(fidelys);
+        return fidelysService.updatepassword(id,password,oldpassword);
 
     }
 

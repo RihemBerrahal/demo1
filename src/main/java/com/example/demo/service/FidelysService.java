@@ -63,6 +63,7 @@ public class FidelysService {
 
            // emailSenderService.sendSimpleEmail(fidelys.getEmail(),"this is body","this is obejct");
                fidelys.setAppUserRole(AppUserRole.user);
+               fidelys.setStatus("Provisoire");
                 String passwordencoder = encoder.encode(fidelys.getPassword());
                 fidelys.setPassword(passwordencoder );
                 fidelysRepository.save(fidelys);
@@ -85,15 +86,18 @@ public class FidelysService {
         return list;
 
     }
- public    Fidelys updatepassword(Fidelys fidelys)
-            {
-        List<Fidelys> list = fidelysRepository.findById(fidelys.getId());
+ public    Fidelys updatepassword(int id, String password, String oldpassword) throws Exception {
+        List<Fidelys> list = fidelysRepository.findById(id);
                 System.out.println(list.get(0).getEmail() );
-                String password=encoder.encode(fidelys.getPassword()
-                );
-               list.get(0).setPassword(password);
-               fidelysRepository.save(list.get(0));
-               return (list.get(0));
+                boolean test= encoder.matches(oldpassword,list.get(0).getPassword());
+                if(test==true){
+                    String password1=encoder.encode(password);
+                    list.get(0).setPassword(password1);
+                    fidelysRepository.save(list.get(0));
+                    return (list.get(0));
+                }else {throw new Exception("password incorrect");}
+
+
 
 
 
@@ -225,8 +229,11 @@ public class FidelysService {
        return fidelysRepository.findAll();
     }
     public Fidelys UpdateFidelys(Fidelys fidelys){
-        fidelys.setAppUserRole(AppUserRole.user);
-        return fidelysRepository.save(fidelys);
+        List<Fidelys> fid= fidelysRepository.findById(fidelys.getId());
+
+        fid.get(0).setStatus(fidelys.getStatus());
+        fidelysRepository.save(fid.get(0));
+        return fid.get(0);
 
     }
     public Fidelys deleteFidelys(int id){

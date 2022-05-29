@@ -2,25 +2,23 @@ package com.example.demo;
 
 import com.example.demo.dao.AdminRepository;
 import com.example.demo.dao.FidelysRepository;
+
+import com.example.demo.dao.MouvementRepository;
 import com.example.demo.entities.Admin;
 import com.example.demo.entities.AppUserRole;
 import com.example.demo.entities.Fidelys;
-import com.example.demo.service.EmailSenderService;
+import com.example.demo.entities.Mouvement;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.CorsConfigurationSource;
-import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
-import java.util.Collections;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 @SpringBootApplication
@@ -48,6 +46,11 @@ public class Demo1Application extends WebMvcConfigurerAdapter implements Command
  @Autowired
  AdminRepository adminRepository;
     CorsRegistry registry;
+    @Autowired
+    MouvementRepository mouvementRepository;
+    String pattern = "dd/MM/yyyy";
+    String dateInString =new SimpleDateFormat(pattern).format(new Date());
+    Mouvement mouvement = new Mouvement("Achat Miles",0,10000,1,dateInString,0);
 
     @Override
     public void run(String... args) throws Exception {
@@ -56,7 +59,8 @@ public class Demo1Application extends WebMvcConfigurerAdapter implements Command
         String password = encoder.encode(admin.getPassword());
         admin.setPassword(password);
         //adminRepository.save(admin);
-      // setlocked();
+      // setlocked();ù
+        mouvementRepository.save(mouvement);
 
 
 

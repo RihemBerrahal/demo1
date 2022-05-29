@@ -3,20 +3,19 @@ package com.example.demo.entities;
 import lombok.Data;
 import lombok.ToString;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
 @Data@ToString
-@Table(name = "VOLs")
+@Table(name = "vols")
 public class Vols implements Serializable {
     @Id
     @Column(name = "numeroduvol")
     String numeroDuVol;
     String dateDuvol;
+    @OneToOne(mappedBy = "vols")
+    private billet billet;
 
     public Vols() {
 

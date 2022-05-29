@@ -43,6 +43,7 @@ public class Fidelys implements UserDetails {
     String telpro;
     String fax;
     String status;
+    Double solde;
     @Enumerated(EnumType.STRING)
     private AppUserRole appUserRole;
     private Boolean locked = false;
