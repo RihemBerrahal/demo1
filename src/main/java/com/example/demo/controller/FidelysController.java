@@ -172,6 +172,18 @@ EmailSenderService emailSenderService;
         return fidelysService.find(id);
 
     }
+    @PostMapping("/testersolde")
+    public long tester(@RequestBody Fidelys fidelys) throws Exception {
+
+        return fidelysService.Testersolde(fidelys);
+
+    }
+    @PostMapping("/convertirsolde")
+    public String convertir(@RequestBody Fidelys fidelys) throws Exception {
+
+        return fidelysService.convertir(fidelys);
+
+    }
 
 
 }
